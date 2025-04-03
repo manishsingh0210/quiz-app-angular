@@ -1,1 +1,42 @@
 @import "tailwindcss";
+
+@layer components {
+  .container {
+    @apply max-w-3xl mx-auto px-4;
+  }
+  .form-control {
+    @apply w-full p-2 mt-1 border border-gray-300 rounded-md  focus:ring-[#3929a0] focus:border-[#3929a0];
+  }
+
+  .form-group {
+    @apply mb-4;
+  }
+
+  .btn {
+    @apply w-full px-4 py-2 rounded-md text-base cursor-pointer m-1;
+  }
+
+  .btn-primary {
+    @apply bg-[#3929a0] text-white hover:bg-[#C73C84] disabled:bg-gray-400 disabled:cursor-not-allowed;
+  }
+
+  .option {
+    @apply p-3 my-1 border border-gray-300 rounded-md cursor-pointer transition-colors;
+  }
+
+  .option:hover:not(.disabled) {
+    @apply bg-gray-100;
+  }
+
+  .option.correct {
+    @apply bg-green-100 border-green-500;
+  }
+
+  .option.incorrect {
+    @apply bg-red-100 border-red-500;
+  }
+
+  .option.disabled {
+    @apply cursor-not-allowed opacity-70;
+  }
+}
