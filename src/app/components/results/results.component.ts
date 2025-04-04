@@ -5,10 +5,11 @@ import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { ReviewAnswersComponent } from "../review-answers/review-answers.component";
 
 @Component({
   selector: 'app-results',
-  imports: [TimeFormatPipe],
+  imports: [TimeFormatPipe, ReviewAnswersComponent],
   templateUrl: './results.component.html',
 })
 export class ResultsComponent {
