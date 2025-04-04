@@ -38,6 +38,10 @@ export class QuizService {
         return this.userInfo.asObservable();
     }
 
+    getCurrentState(): Observable<QuizState> {
+        return this.quizState.asObservable();
+    }
+
     setUserInfo(info: UserInfo): void {
         this.userInfo.next(info);
         const currentState = this.quizState.value;

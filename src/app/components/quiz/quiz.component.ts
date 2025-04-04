@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { QuizService } from '../../services/quiz.service';
 import { Question } from '../../models/quiz.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -22,7 +23,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private stateSubscription?: Subscription;
 
-  constructor(private quizService: QuizService) { }
+  constructor(private router: Router, private quizService: QuizService) { }
 
   ngOnInit(): void {
     this.stateSubscription = this.quizService.getUserInfo().subscribe(info => {
@@ -51,5 +52,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.isAnswered = false;
   }
 
-  finishQuiz(): void { }
+  finishQuiz(): void {
+    this.router.navigate(['results']);
+  }
 }
