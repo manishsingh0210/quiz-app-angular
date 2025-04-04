@@ -6,10 +6,10 @@
     </div>
     <div class="form-group">
         <label for="category" class="block text-sm font-medium text-gray-700">Select Category:</label>
-        <select id="category" [(ngModel)]="selectedCategory" class="form-control">
+        <select id="category" [(ngModel)]="selectedCategoryId" class="form-control">
             <option value="">Select a category</option>
-            <option *ngFor="let category of categories" [value]="category">
-                {{category}}
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
             </option>
         </select>
     </div>
@@ -23,7 +23,7 @@
             <li>You will be able to review your answers & correct answers after the quiz.</li>
         </ul>
     </div>
-    <button class="btn btn-primary" (click)="startQuiz()" [disabled]="!userName || !selectedCategory">
+    <button class="btn btn-primary" (click)="startQuiz()" [disabled]="!userName || !selectedCategoryId">
         Start Quiz
     </button>
 </div>
