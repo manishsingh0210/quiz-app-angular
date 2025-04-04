@@ -30,3 +30,12 @@ export const questions: Question[] = [
         categoryId: 1
     },
 ];
+
+export const quizRules: string[] = [
+    'You have 5 minutes to complete the quiz.',
+    'Each question has only one correct answer.',
+    'You cannot go back to previous questions while taking the quiz.',
+    'Page refreshes during the quiz will reset the quiz.',
+    'Your final score will be shown at the end.',
+    'You will be able to review your answers & correct answers after the quiz.'
+];

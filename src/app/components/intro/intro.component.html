@@ -13,15 +13,10 @@
             </option>
         </select>
     </div>
-    <div class=" bg-white rounded-lg shadow-md p-6 my-6">
+    <div class=" bg-white rounded-lg shadow-md px-6 py-3 my-3">
         <h3 class="text-xl font-semibold mb-4">Quiz Rules:</h3>
         <ul class="list-disc pl-5 space-y-2">
-            <li>You have 5 minutes to complete the quiz.</li>
-            <li>Each question has only one correct answer.</li>
-            <li>You cannot go back to previous questions while taking the quiz.</li>
-            <li>Page refreshes during the quiz will reset the quiz.</li>
-            <li>Your final score will be shown at the end.</li>
-            <li>You will be able to review your answers & correct answers after the quiz.</li>
+            <li *ngFor="let rule of quizRules">{{rule}}</li>
         </ul>
     </div>
     <button class="btn btn-primary" (click)="startQuiz()" [disabled]="!userName || !selectedCategoryId">

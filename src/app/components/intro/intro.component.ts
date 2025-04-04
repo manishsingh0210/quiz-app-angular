@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
 import { take } from 'rxjs/operators';
+import { quizRules } from '../../utils/mockData';
 
 @Component({
   selector: 'app-intro',
@@ -16,6 +17,8 @@ export class IntroComponent {
   selectedCategoryId: number = 0;
 
   categories: { id: number; name: string; }[] = [];
+
+  quizRules: string[] = quizRules;
 
   constructor(private router: Router, private quizService: QuizService) {
     this.categories = this.quizService.getCategories();
