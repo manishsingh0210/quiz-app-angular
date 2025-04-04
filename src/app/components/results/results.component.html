@@ -2,8 +2,15 @@
     <h2 class="text-2xl font-bold mb-6">Quiz Results</h2>
     <div class="bg-white rounded-lg shadow-md p-6 mb-8 text-center">
         <h3 class="text-xl font-semibold mb-4">{{userInfo.name}}'s Score</h3>
-        <p class="text-lg mb-2">You got {{quizState.score}} out of {{questions.length}} questions right!</p>
-        <p class="text-gray-600">Time taken: </p>
+        @if(quizState.score === 0){
+        <p class="text-lg mb-2">You got {{quizState.score}} out of {{questions.length}} questions right. Click on try
+            again button to retry.</p>
+        }
+        @else {
+        <p class="text-lg mb-2">Congratulations! You got {{quizState.score}} out of {{questions.length}} questions
+            right.</p>
+        }
+        <p class="text-gray-600">Time taken: {{ quizState.totalTime - quizState.timeRemaining | timeFormat }}</p>
     </div>
     <button class="btn btn-primary w-full mt-6" (click)="restartQuiz()">Try Again</button>
 </div>

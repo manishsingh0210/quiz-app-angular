@@ -39,7 +39,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       pipe(
         take(1)
       ).subscribe(state => {
-        this.timeRemaining = state.timeRemaining;
+        this.timeRemaining = state.totalTime;
         this.startTimer();
       });
   }

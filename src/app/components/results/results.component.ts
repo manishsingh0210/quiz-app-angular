@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { Question, QuizState, UserInfo } from '../../models/quiz.model';
 import { QuizService } from '../../services/quiz.service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 
 @Component({
   selector: 'app-results',
-  imports: [],
+  imports: [TimeFormatPipe],
   templateUrl: './results.component.html',
 })
 export class ResultsComponent {
@@ -15,27 +18,36 @@ export class ResultsComponent {
 
   userInfo!: UserInfo;
 
-  private userInfoSubscription?: Subscription;
+  private destroy$: Subject<void> = new Subject<void>();
 
-  private stateSubscription?: Subscription;
-
-  constructor(private quizService: QuizService) { }
+  constructor(private navigate: Router, private quizService: QuizService) { }
 
   ngOnInit(): void {
-    this.stateSubscription = this.quizService.getCurrentState().subscribe(state => {
-      this.quizState = state;
-    });
+    this.quizService.getCurrentState().
+      pipe(
+        takeUntil(this.destroy$)
+      ).
+      subscribe(state => {
+        this.quizState = state;
+      });
 
-    this.userInfoSubscription = this.quizService.getUserInfo().subscribe(info => {
-      this.userInfo = info;
-      this.questions = this.quizService.getQuestions(info.selectedCategoryId);
-    });
+    this.quizService.getUserInfo().
+      pipe(
+        take(1)
+      ).
+      subscribe(info => {
+        this.userInfo = info;
+        this.questions = this.quizService.getQuestions(info.selectedCategoryId);
+      });
   }
 
   ngOnDestroy(): void {
-    this.stateSubscription?.unsubscribe();
-    this.userInfoSubscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  restartQuiz() { }
+  restartQuiz() {
+    this.quizService.resetQuiz();
+    this.navigate.navigate(['']);
+  }
 }

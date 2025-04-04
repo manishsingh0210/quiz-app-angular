@@ -1,5 +1,7 @@
 import { Categories, Question } from "../models/quiz.model";
 
+export const defautTime: number = 300;
+
 export const categories: Categories = {
     'geography': { id: 1, name: 'Geography' },
     'history': { id: 2, name: 'History' }

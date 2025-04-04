@@ -19,6 +19,7 @@ export interface QuizState {
     currentQuestionIndex: number;
     answers: number[];
     score: number;
+    totalTime: number;
     timeRemaining: number;
     selectedCategoryId: number;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Categories, Question, QuizState, UserInfo } from '../models/quiz.model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { categories, questions } from '../utils/mockData';
+import { categories, defautTime, questions } from '../utils/mockData';
 
 @Injectable({
     providedIn: 'root'
@@ -11,13 +11,16 @@ export class QuizService {
 
     private questions: Question[] = questions;
 
-    private quizState = new BehaviorSubject<QuizState>({
+    private defaultState: QuizState = {
         currentQuestionIndex: 0,
         answers: [],
         score: 0,
-        timeRemaining: 300,
+        totalTime: defautTime,
+        timeRemaining: defautTime,
         selectedCategoryId: 0
-    });
+    }
+
+    private quizState = new BehaviorSubject<QuizState>(this.defaultState);
 
     private userInfo = new BehaviorSubject<UserInfo>({
         name: 'Notified User',
@@ -84,14 +87,7 @@ export class QuizService {
     }
 
     resetQuiz(): void {
-        const categoryId = this.userInfo.value.selectedCategoryId;
-        this.quizState.next({
-            currentQuestionIndex: 0,
-            answers: [],
-            score: 0,
-            timeRemaining: 300,
-            selectedCategoryId: categoryId
-        });
+        this.quizState.next(this.defaultState);
     }
 
     private calculateScore(answers: number[]): number {
