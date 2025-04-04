@@ -24,7 +24,7 @@ export const questions: Question[] = [
         id: 3,
         question: 'What is the capital of India?',
         choices: ['Delhi', 'Mumbai', 'Bengaluru', 'Chennai'],
-        correctAnswer: 1,
+        correctAnswer: 0,
         categoryId: 1
     },
 ];

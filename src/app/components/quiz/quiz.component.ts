@@ -38,9 +38,18 @@ export class QuizComponent implements OnInit, OnDestroy {
     return this.questions[this.currentQuestionIndex];
   }
 
-  selectAnswer(index: number): void { }
+  selectAnswer(index: number): void {
+    this.selectedAnswer = index;
+    this.isAnswered = true;
+    this.quizService.submitAnswer(this.currentQuestionIndex, index);
+  }
 
-  nextQuestion(): void { }
+  nextQuestion(): void {
+    this.quizService.nextQuestion();
+    this.currentQuestionIndex++;
+    this.selectedAnswer = null;
+    this.isAnswered = false;
+  }
 
   finishQuiz(): void { }
 }

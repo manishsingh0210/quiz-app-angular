@@ -46,4 +46,25 @@ export class QuizService {
             selectedCategoryId: info.selectedCategoryId
         });
     }
+
+    submitAnswer(questionIndex: number, answerIndex: number): void {
+        const currentState = this.quizState.value;
+        const answers = [...currentState.answers];
+        if (questionIndex >= 0) {
+            answers[questionIndex] = answerIndex;
+        }
+
+        this.quizState.next({
+            ...currentState,
+            answers
+        });
+    }
+
+    nextQuestion(): void {
+        const currentState = this.quizState.value;
+        this.quizState.next({
+            ...currentState,
+            currentQuestionIndex: currentState.currentQuestionIndex + 1
+        });
+    }
 }
