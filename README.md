@@ -46,7 +46,7 @@ git clone https://github.com/manishsingh0210/quiz-app-angular.git
 Navigate into the cloned project directory:
 
 ```bash
-cd your-repo-name
+cd quiz-app-angular
 ```
 
 Install the project dependencies:
