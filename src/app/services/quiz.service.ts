@@ -58,9 +58,12 @@ export class QuizService {
             answers[questionIndex] = answerIndex;
         }
 
+        const score = this.calculateScore(answers);
+
         this.quizState.next({
             ...currentState,
-            answers
+            answers,
+            score
         });
     }
 
@@ -70,5 +73,13 @@ export class QuizService {
             ...currentState,
             currentQuestionIndex: currentState.currentQuestionIndex + 1
         });
+    }
+
+    private calculateScore(answers: number[]): number {
+        const categoryQuestions = this.getQuestions(this.quizState.value.selectedCategoryId);
+        return answers.reduce((score, answer, index) => {
+            const question = categoryQuestions[index];
+            return question && answer === question.correctAnswer ? score + 1 : score;
+        }, 0);
     }
 }
