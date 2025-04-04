@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 @layer components {
-  .container {
-    @apply max-w-3xl mx-auto px-4;
+  .custom-container {
+    @apply max-w-3xl mx-auto p-4;
+  }
+
+  @screen xl {
+    .custom-container {
+      @apply max-w-screen-lg;
+    }
   }
   .form-control {
     @apply w-full p-2 mt-1 border border-gray-300 rounded-md  focus:ring-[#3929a0] focus:border-[#3929a0];
