@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-intro',
@@ -17,18 +17,19 @@ export class IntroComponent {
 
   categories: { id: number; name: string; }[] = [];
 
-  private userInfoSubscription?: Subscription;
-
   constructor(private router: Router, private quizService: QuizService) {
     this.categories = this.quizService.getCategories();
-    this.userInfoSubscription = this.quizService.getUserInfo().subscribe(info => {
-      this.userName = info.name;
-      this.selectedCategoryId = info.selectedCategoryId;
-    });
+    this.quizService.getUserInfo().
+      pipe(
+        take(1)
+      ).subscribe(info => {
+        this.userName = info.name;
+        this.selectedCategoryId = info.selectedCategoryId;
+      });
   }
 
   ngOnDestroy(): void {
-    this.userInfoSubscription?.unsubscribe();
+    //clean up
   }
 
   startQuiz(): void {
