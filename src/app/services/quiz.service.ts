@@ -51,6 +51,14 @@ export class QuizService {
         });
     }
 
+    updateTimer(timeRemaining: number): void {
+        const currentState = this.quizState.value;
+        this.quizState.next({
+            ...currentState,
+            timeRemaining
+        });
+    }
+
     submitAnswer(questionIndex: number, answerIndex: number): void {
         const currentState = this.quizState.value;
         const answers = [...currentState.answers];
@@ -72,6 +80,17 @@ export class QuizService {
         this.quizState.next({
             ...currentState,
             currentQuestionIndex: currentState.currentQuestionIndex + 1
+        });
+    }
+
+    resetQuiz(): void {
+        const categoryId = this.userInfo.value.selectedCategoryId;
+        this.quizState.next({
+            currentQuestionIndex: 0,
+            answers: [],
+            score: 0,
+            timeRemaining: 300,
+            selectedCategoryId: categoryId
         });
     }
 
